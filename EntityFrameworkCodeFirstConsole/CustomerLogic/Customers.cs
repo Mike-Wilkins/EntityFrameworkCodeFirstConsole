@@ -1,9 +1,7 @@
 ﻿using ConsoleTables;
 using EntityFrameworkCodeFirstConsole.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace EntityFrameworkCodeFirstConsole.CustomerLogic
@@ -18,17 +16,17 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
             bool emailIsValid = ValidateEmail(customer.Email);
             var customerExists = db.Customers.Where(m => m.FirstName == customer.FirstName && m.LastName == customer.LastName).FirstOrDefault();
 
-            if(emailIsValid == false)
+            if (emailIsValid == false)
             {
                 Console.WriteLine("Customer email is invalid");
             }
 
-            if(customerExists != null)
+            if (customerExists != null)
             {
                 Console.WriteLine("Customer already exists");
             }
 
-            if(emailIsValid == true && customerExists == null)
+            if (emailIsValid == true && customerExists == null)
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
@@ -50,7 +48,7 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
         {
             var result = db.Customers.Where(m => m.FirstName == firstname && m.LastName == lastname).FirstOrDefault();
 
-            if(result == null)
+            if (result == null)
             {
                 Console.WriteLine("Customer details not found");
             }
@@ -66,12 +64,6 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
         {
             return Regex.IsMatch(customerEmail, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
-
-
-       
-
-
-
 
         // Print customer list in console
         public void PrintCustomers()
