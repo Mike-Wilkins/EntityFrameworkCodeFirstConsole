@@ -14,17 +14,17 @@ namespace EntityFrameworkCodeFirstConsole
             Console.ReadLine();
             Console.Clear();
 
-            customer.FirstName = "Jake";
-            customer.MiddleName = "Harry";
-            customer.LastName = "Anderson";
-            customer.Address = "67 Belvour Drive";
-            customer.PhoneNumber = 882564;
-            customer.Email = "jake@gmail.com";
-            customer.DateCreated = DateTime.Now.ToShortDateString();
+            //customer.FirstName = "Luke";
+            //customer.MiddleName = "Tom";
+            //customer.LastName = "Davies";
+            //customer.Address = "38 Grand Park Avenue";
+            //customer.PhoneNumber = 882564;
+            //customer.Email = "luke@gmail.com";
+            //customer.DateCreated = DateTime.Now.ToShortDateString();
 
-            create.Create(customer);
+            //create.Create(customer);
 
-            create.PrintCustomers();
+            //create.PrintCustomers();
 
 
 
@@ -32,17 +32,18 @@ namespace EntityFrameworkCodeFirstConsole
             //create.PrintCustomers();
 
 
-            //customer.FirstName = "Anna";
-            //customer.MiddleName = "Lynsey";
-            //customer.LastName = "Thompson";
-            //customer.Address = "6 Oak Lane";
-            //customer.PhoneNumber = 2229945;
-            //customer.Email = "anna@gmail.com";
-            //customer.DateCreated = DateTime.Now.ToShortDateString();
+            customer.Customer_Id = 3;
+            customer.FirstName = "Anna";
+            customer.MiddleName = "Lynsey";
+            customer.LastName = "Thompson";
+            customer.Address = "12 Oak Lane";
+            customer.PhoneNumber = 2229945;
+            customer.Email = "anna@gmail.com";
+            customer.DateCreated = DateTime.Now.ToShortDateString();
 
-            //create.Edit(customer);
+            create.Edit(customer);
 
-            //create.PrintCustomers();
+            create.PrintCustomers();
 
         }
     }

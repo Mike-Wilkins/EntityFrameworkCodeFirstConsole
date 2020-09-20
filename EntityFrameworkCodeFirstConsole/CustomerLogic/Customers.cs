@@ -13,6 +13,10 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
         // Add new customer to database
         public void Create(Customer customer)
         {
+
+            var customerId = db.Customers.Max(m => m.Customer_Id)+1;
+
+
             bool emailIsValid = ValidateEmail(customer.Email);
             var customerExists = db.Customers.Where(m => m.FirstName == customer.FirstName && m.LastName == customer.LastName).FirstOrDefault();
 
@@ -28,6 +32,7 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
 
             if (emailIsValid == true && customerExists == null)
             {
+                customer.Customer_Id = customerId;
                 db.Customers.Add(customer);
                 db.SaveChanges();
             }
@@ -36,11 +41,25 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
         // Update custumer details
         public void Edit(Customer customer)
         {
-            var result = db.Customers.Where(m => m.FirstName == customer.FirstName && m.LastName == customer.LastName).FirstOrDefault();
-            db.Customers.Remove(result);
+            bool emailIsValid = ValidateEmail(customer.Email);
+            var result = db.Customers.Where(m => m.Customer_Id == customer.Customer_Id).FirstOrDefault();
 
-            db.Customers.Add(customer);
-            db.SaveChanges();
+            if(emailIsValid == false)
+            {
+                Console.WriteLine("Customer email is invalid");
+            }
+
+            if(result == null)
+            {
+                Console.WriteLine("Customer with Customer Id {0}", customer.Customer_Id, " was not found");
+            }
+
+            if(emailIsValid == true && result != null)
+            {
+                db.Customers.Remove(result);
+                db.Customers.Add(customer);
+                db.SaveChanges();
+            }
         }
 
         // Delete customer from database
@@ -73,7 +92,7 @@ namespace EntityFrameworkCodeFirstConsole.CustomerLogic
 
             foreach (var item in result)
             {
-                table.AddRow(item.Id, item.FirstName, item.MiddleName, item.LastName, item.PhoneNumber, item.Address, item.Email, item.DateCreated);
+                table.AddRow(item.Customer_Id, item.FirstName, item.MiddleName, item.LastName, item.PhoneNumber, item.Address, item.Email, item.DateCreated);
             }
             Console.WriteLine(table);
         }
